@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Autoclick</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <input type="time" name="input" id="input" step="0.001">
+    <button id="button2">test</button>
+
+
+    <script>
+        function addZero(x, n) {
+            while (x.toString().length < n) {
+                x = "0" + x;
+            }
+            return x;
+        }
+
+        $('#button2').on('click', function () {
+            console.log('juhuuu')
+        })
+
+        $(document).ready(function () {
+            setInterval(function () {
+                check();
+            }, 1)
+
+        })
+
+        function check() {
+            var input = $('#input').val();
+            console.log(input)
+
+
+
+            //var input = $('#input').val();
+            var d = new Date();
+            var h = addZero(d.getHours(), 2);
+            var m = addZero(d.getMinutes(), 2);
+            var s = addZero(d.getSeconds(), 2);
+            var ms = addZero(d.getMilliseconds(), 3);
+
+            var x = h + ":" + m + ":" + s + "." + ms;
+            //var x = h + ":" + m + ":" + s;
+            console.log(x)
+
+            //console.log("only milliseconds from default time " + ms)
+
+
+            /*var inputSplit = input.substr(input.length - 3)
+            console.log(inputSplit)*/
+
+            var newInput = input.replace(/:/g, ".")
+
+            var field = newInput.split('.')
+            console.log(field[0])
+            console.log(field[1])
+            console.log(field[2])
+            console.log(field[3])
+
+            if (h == field[0]) {
+                if (m == field[1]) {
+                    if (s == field[2]) {
+                        var diff = Math.abs(field[3] - ms)
+                        console.log("diff " + diff)
+                        if (diff < 15) {
+                            $('#button2').trigger('click');
+                            alert("abu")
+                        }
+                    }
+                }
+            }
+
+
+            /*
+                        var diff = Math.abs(inputSplit - ms)
+
+                        if (diff < 10) {
+                            $('#button2').trigger('click');
+                            alert("abu")
+                        }*/
+
+
+
+
+        }
+    </script>
+</body>
+
+</html>
